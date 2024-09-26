@@ -1,5 +1,5 @@
 
-from flask import Flask
+from flask import Blueprint, jsonify, request,Flask
 from flask_sqlalchemy import SQLAlchemy
 from .config import Config
 
@@ -16,9 +16,13 @@ def crear_app():
     # Importar modelos para registrar las tablas
     with app.app_context():
         
-        from .models.buses_models import Bus
-        from .  models.itinerario_models import Itinerario
+        from .models.buses_models import Buses
+        from .models.itinerario_models import Itinerarios
         db.create_all()  # Crear las tablas en la base de datos
+
+    # Importar y registrar el blueprint de rutas
+    from .rutas.buses_routes import main
+    app.register_blueprint(main)
 
     # Aquí puedes registrar blueprintsflask_sqlalchemy
     # from .routes import main
