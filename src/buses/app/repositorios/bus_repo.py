@@ -7,38 +7,22 @@ class Busclass:
         
         return "hola"
 
-    def verificar_existe(self,chapa):
+    def obtener_por_chapa(chapa):
         bus_existe = Buses.query.filter_by(chapa=chapa).first()
-        if bus_existe:
-                return bus_existe
-
-
-    def obtener_por_chapa(self,chapa):
-        bus = self.verificar_existe(chapa)
-        if bus:
-            return bus
-        else:
-            return("Bus no encontrado")
+        return bus_existe
         
         
-    def agregar_bus(self,linea,estado,chapa):
-        existe = self.verificar_existe(chapa)
-        if existe:
-            return f"El bus con chapa ya {existe} ya existe"
-        else: 
-            bus = Buses(linea=linea,estado=estado,chapa=chapa)
-            db.session.add(bus)
-            db.session.commit()
-            return f"{bus} creado con exito"
+    def agregar_bus(bus):
         
+        db.session.add(bus)
+        db.session.commit()
+        return f"{bus} creado con exito"
         
-    def editar_por_chapa(self,nueva_linea,estado_nuevo,chapa):
-        bus = self.verificar_existe(chapa)
-        if bus:
-            if nueva_linea is not None:
-                bus.linea = nueva_linea
-            if estado_nuevo is not None:
-                bus.estado = estado_nuevo
-
-            db.session.commit()
-            return bus
+    def eliminar_bus(id):
+        db.session.delete(id)
+        db.session.commit()
+        return f'Bus con id {id} fue eliminado'
+    
+    def editar(bus):
+        db.session.commit()
+        return f'Bus editado: {bus}'
