@@ -18,10 +18,10 @@ class Busclass:
         db.session.commit()
         return f"{bus} creado con exito"
         
-    def eliminar_bus(id):
-        db.session.delete(id)
+    def eliminar_bus(chapa):
+        db.session.delete(chapa)
         db.session.commit()
-        return f'Bus con id {id} fue eliminado'
+        return f'Bus: {chapa} fue eliminado'
     
     def editar(bus):
         db.session.commit()

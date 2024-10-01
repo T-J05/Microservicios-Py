@@ -16,17 +16,17 @@ def inicioo():
 
 
 
-@main.route("/crear_bus",methods=['POST'])
+@main.route("/crear_bus",methods=['PUT'])
 def crear_bus():
     try:
         bus = request.get_json()
-        colectivo.crear_bus(bus)
-        return f'{bus} creado con exito'
+        print(bus)
+        return  colectivo.crear_bus(bus)
     except Exception as e:
-        return jsonify(f'error {e} demonos')
+        return jsonify(f'error r {e} demonos')
     
 
-@main.route("/ver_bus",methods=['POST'])
+@main.route("/ver_bus",methods=['POST',"GET"])
 def ver_bus():
     try:
         data = request.get_json()
@@ -35,7 +35,23 @@ def ver_bus():
     except Exception as e:
         return jsonify(f'Error {e}')
     
-@main.route("/editar_bus",methods=['POST'])
+@main.route("/editar_bus",methods=['PATCH'])
+def editar_bus():
+    try:
+        data = request.get_json()
+        colectivo.editar_bus(data)
+        return colectivo.editar_bus(data)
+    except Exception as e:
+        return jsonify(f'Error {e}')
 
-
-
+@main.route("/eliminar_bus",methods=["DELETE"])
+def eliminar_bus():
+    try:
+        data = request.get_json()
+        if data:
+            return colectivo.delete_bus(data)
+        else:
+            return f"Mensaje vacio capo"
+    except Exception as e:
+        return f"Errorr de: {e}"
+           
