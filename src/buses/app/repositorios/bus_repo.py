@@ -11,7 +11,10 @@ class Busclass:
         bus_existe = Buses.query.filter_by(chapa=chapa).first()
         return bus_existe
         
-        
+    def obtener_todo():
+        buses = Buses.query.all()
+        return buses
+    
     def agregar_bus(bus):
         
         db.session.add(bus)

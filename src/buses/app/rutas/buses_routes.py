@@ -1,9 +1,6 @@
 from flask import Blueprint, jsonify, request
-from ..models.buses_models import Buses
-from ..models.itinerario_models import Itinerarios
 from ..servicios.bus_service import Colectivo
 
-from .. import db
 colectivo = Colectivo
 # Crear un blueprint para las rutas
 main = Blueprint('main', __name__)
@@ -35,6 +32,14 @@ def ver_bus():
     except Exception as e:
         return jsonify(f'Error {e}')
     
+@main.route("/ver_todo",methods = ["GET"])
+def ver_todo ():
+    try:
+        return jsonify(colectivo.ver_todo())
+    except Exception as e:
+        return jsonify(f"Error de: {e}")
+    
+    
 @main.route("/editar_bus",methods=['PATCH'])
 def editar_bus():
     try:
@@ -43,6 +48,7 @@ def editar_bus():
         return colectivo.editar_bus(data)
     except Exception as e:
         return jsonify(f'Error {e}')
+
 
 @main.route("/eliminar_bus",methods=["DELETE"])
 def eliminar_bus():

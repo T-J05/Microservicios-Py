@@ -14,3 +14,12 @@ class Buses(db.Model):
     def __repr__(self):
         return (f"<Bus(id={self.id}, linea='{self.linea}', "
                 f"estado='{self.estado}', chapa='{self.chapa}')>")
+    
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'linea': self.linea,
+            'estado': self.estado,
+            'chapa': self.chapa
+        }

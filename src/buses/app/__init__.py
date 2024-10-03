@@ -24,8 +24,5 @@ def crear_app():
     from .rutas.buses_routes import main
     app.register_blueprint(main)
 
-    # Aquí puedes registrar blueprintsflask_sqlalchemy
-    # from .routes import main
-    # app.register_blueprint(main)
-
+    
     return app

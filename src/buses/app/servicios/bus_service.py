@@ -7,14 +7,6 @@ class Colectivo:
         
         saludo = buss.saludar()
         return saludo
-    
-    def verficar_vacio(data): 
-        campos_requeridos = ['linea', 'estado', 'chapa']
-        for campo in campos_requeridos:
-             if campo not in data or not data[campo]:
-               print(f"Error: El campo '{campo}' es requerido y no puede estar vacío.")
-             return False
-        return True
 
 
     def crear_bus(bus):
@@ -24,8 +16,7 @@ class Colectivo:
                return f"Error: El campo '{campo}' es requerido y no puede estar vacío.",400
              
         chapa = buss.obtener_por_chapa(bus["chapa"])
-        
-        
+
         if chapa:
                 return f'El bus ya existe' ,404 
         linea = bus.get('linea')
@@ -43,9 +34,18 @@ class Colectivo:
         return buss.agregar_bus(nuevo_bus)
     
     
+    def ver_todo():
+        try:
+            buses = buss.obtener_todo()
+            bu = [bus.to_dict() for bus in buses]
+            return bu
+        except Exception as e:
+            return f"Error {e}",400
+    
+    
     def bus_ver(chapa):
         if not buss.obtener_por_chapa(chapa):
-            return f'El bus no existe'
+            return f'El bus no existe',400
         bus = buss.obtener_por_chapa(chapa)
         return(f'Bus: {bus}')
         
@@ -53,7 +53,7 @@ class Colectivo:
             
         busx = buss.obtener_por_chapa(bus['chapa'])
         if not busx:
-            return f'El bus no existe'
+            return f'El bus no existe',404
 
         
         busx.linea = bus.get('linea', busx.linea)  
