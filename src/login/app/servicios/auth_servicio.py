@@ -1,8 +1,8 @@
 import jwt
 from config import Config
 import pytz
-
 import datetime
+
 class Token:
     key = Config.SECRET_KEY
     tz = pytz.timezone("America/Asuncion")
@@ -23,7 +23,8 @@ class Token:
     def verificar_token (cls,token):
         try:
             payload = jwt.decode(token,cls.key,algorithms="HS256")
-            return payload
+            if payload:
+                return True
         except jwt.ExpiredSignatureError:
             return None
         except jwt.InvalidTokenError:
