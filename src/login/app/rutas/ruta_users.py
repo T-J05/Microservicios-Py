@@ -18,10 +18,8 @@ def inicioo():
 def iniciar_sesion():
     try:
         data_user = request.get_json()
-        if user.iniciar_sesion(data_user):
-            token = user.iniciar_sesion(data_user)
-            print(token)
-            return jsonify(f"{data_user["username"]} bienvenido,{token} ")
+        userr= user.iniciar_sesion(data_user)
+        return jsonify(f"{data_user["username"]} bienvenido"),redirect(url_for('generar_token'))
     except Exception as e:
         return jsonify(f"Error {e}")
 
