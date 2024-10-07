@@ -1,6 +1,6 @@
 from ..repositorios.repo_user import Userclass
 from ..models.model_user import Users
-from auth_servicio import Token
+from .. import Token
 tokenclass = Token
 
 
@@ -36,11 +36,11 @@ class Userservice:
             if username:
                 if user["contraseña"] == contraseña:
                     token = tokenclass.generar_token(user)
-                    return token
+                    return f"Su token es: {token}"
                 else:
-                    return f"Contraseña incorrecta"
+                    return f"Contraseña incorrecta",None
             else: 
-                return f"Username {username} no registrado o mal escrito"
+                return f"Username {username} no registrado o mal escrito",None
         except Exception as e:
             return f"Error (i) {e}"
     

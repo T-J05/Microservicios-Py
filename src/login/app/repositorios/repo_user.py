@@ -4,8 +4,8 @@ from .. import db
 
 class Userclass:
      def obtener_username(username):
-        bus_existe = Users.query.filter_by(username=username).first()
-        return bus_existe
+        user = Users.query.filter_by(username=username).first()
+        return user
         
         
      def obtener_todo():
