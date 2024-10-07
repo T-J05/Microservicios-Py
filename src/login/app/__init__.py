@@ -1,5 +1,5 @@
 
-from flask import Blueprint, jsonify, request,Flask
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
