@@ -11,8 +11,7 @@ class Users(db.Model):
     
     
     def __repr__(self):
-        return (f"<User(id={self.id}, contraseña='{self.contraseña}', "
-                f"username='{self.username}')>")
+        return (f"<User(id={self.id},contraseña={self.contraseña},"f"username={self.username})>")
     
 
     def to_dict(self):

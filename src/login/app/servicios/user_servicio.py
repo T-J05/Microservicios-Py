@@ -1,13 +1,9 @@
 from ..repositorios.repo_user import Userclass
 from ..models.model_user import Users
-<<<<<<< HEAD
 from ..servicios.auth_servicio import Token
-=======
-from .. import Token
->>>>>>> 76055234f1add05d41d78bae6a9ef22ab2f8afaf
 tokenclass = Token
 
-
+usermodels = Users
 
 userss = Userclass #funciones directas con la base de datos
 
@@ -37,24 +33,30 @@ class Userservice:
            
            
             userss.agregar_user(modelouser)
+            return f"El user: {user_name} registrado correctamente"
             
         except Exception as e:
             return f"Error de  {e}"
-        
-        
-    def iniciar_sesion (user):
+            
+            
+    def iniciar_sesion(user):
         try:
             user_a_verificar = userss.obtener_username(user["username"])
-            contraseña = user_a_verificar["contraseña"]
-            username = user_a_verificar["username"]
-            if username:
+            print((user_a_verificar)) 
+            contraseña = user_a_verificar.contraseña
+            username = user_a_verificar.username
+            if username == user["username"]:
+                
                 if user["contraseña"] == contraseña:
+                    print("hola")
                     token = tokenclass.generar_token(user)
+                    
                     return f"Su token es: {token}"
                 else:
-                    return f"Contraseña incorrecta",None
-            else: 
-                return f"Username {username} no registrado o mal escrito",None
+                    return "Contraseña mal escrita o incorrecta"
+
+            return "Username mal escrito o inexistente"
+
         except Exception as e:
-            return f"Error (i) {e}"
-    
+            return f"Error (i): {str(e)}"
+

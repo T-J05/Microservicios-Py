@@ -18,10 +18,11 @@ def inicioo():
 def iniciar_sesion():
     try:
         data_user = request.get_json()
-        userr= user.iniciar_sesion(data_user)
-        return jsonify(f"{data_user["username"]} bienvenido"),redirect(url_for('generar_token'))
+       
+        
+        return user.iniciar_sesion(data_user)
     except Exception as e:
-        return jsonify(f"Error {e}")
+        return jsonify(f"Error (r,i) {e}")
 
     
 
@@ -33,3 +34,11 @@ def registrarse():
         return  jsonify(registrado)
     except Exception as e:
         return jsonify(f"Error (r)  {e}")
+    
+@userblue.route("/verificar_token",methods=["POST"])
+def verificar_jwt():
+    try:
+        token = request.authorization
+        tokenverficado = tokenclass.verificar_token(token)
+    except Exception as e:
+        return jsonify(f"Error (v) {e}")

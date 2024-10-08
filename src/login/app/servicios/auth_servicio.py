@@ -12,8 +12,8 @@ class Token:
         
         payload = {
             "iat": datetime.datetime.now(tz=cls.tz),
-            "exp": datetime.datetime.now(tz=cls.tz)+ datetime.timedelta (minutes=10),
-            "username": user_data.username
+            "exp": datetime.datetime.now(tz=cls.tz)+ datetime.timedelta (hours=1),
+            "username": user_data["username"]
         }
         token = jwt.encode(payload,cls.key,algorithm="HS256")
     
@@ -24,7 +24,9 @@ class Token:
         try:
             payload = jwt.decode(token,cls.key,algorithms="HS256")
             if payload:
-                return True
+                return True, payload
+            else:
+                return None
         except jwt.ExpiredSignatureError:
             return None
         except jwt.InvalidTokenError:
