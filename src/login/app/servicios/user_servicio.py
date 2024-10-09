@@ -59,4 +59,3 @@ class Userservice:
 
         except Exception as e:
             return f"Error (i): {str(e)}"
-

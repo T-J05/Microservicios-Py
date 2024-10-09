@@ -24,7 +24,7 @@ class Token:
         try:
             payload = jwt.decode(token,cls.key,algorithms="HS256")
             if payload:
-                return True, payload
+                return payload
             else:
                 return None
         except jwt.ExpiredSignatureError:
