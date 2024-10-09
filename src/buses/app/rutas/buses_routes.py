@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from ..servicios.bus_service import Colectivo
+from ..servicios.common import tt
 
 colectivo = Colectivo
 # Crear un blueprint para las rutas
@@ -8,12 +9,13 @@ main = Blueprint('main', __name__)
 
 
 @main.get("/")
+@tt.enviar_token
 def inicioo():
     return colectivo.inicio()
 
 
-
 @main.route("/crear_bus",methods=['PUT'])
+@tt.enviar_token
 def crear_bus():
     try:
         bus = request.get_json()
@@ -24,6 +26,7 @@ def crear_bus():
     
 
 @main.route("/ver_bus",methods=['POST',"GET"])
+@tt.enviar_token
 def ver_bus():
     try:
         data = request.get_json()
@@ -33,6 +36,7 @@ def ver_bus():
         return jsonify(f'Error {e}')
     
 @main.route("/ver_todo",methods = ["GET"])
+@tt.enviar_token
 def ver_todo ():
     try:
         return jsonify(colectivo.ver_todo())
@@ -41,6 +45,7 @@ def ver_todo ():
     
     
 @main.route("/editar_bus",methods=['PATCH'])
+@tt.enviar_token
 def editar_bus():
     try:
         data = request.get_json()
@@ -51,6 +56,7 @@ def editar_bus():
 
 
 @main.route("/eliminar_bus",methods=["DELETE"])
+@tt.enviar_token
 def eliminar_bus():
     try:
         data = request.get_json()
