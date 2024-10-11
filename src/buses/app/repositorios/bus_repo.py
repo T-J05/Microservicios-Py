@@ -5,7 +5,7 @@ from app import db
 class Busclass:
     def saludar ():
         
-        return "hola"
+        return "hola mundo"
 
     def obtener_por_chapa(chapa):
         bus_existe = Buses.query.filter_by(chapa=chapa).first()

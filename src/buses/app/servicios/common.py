@@ -3,6 +3,12 @@ from functools import wraps
 import requests  
 from circuitbreaker import circuit 
 from tenacity import retry, stop_after_attempt, wait_fixed 
+from nats.aio.client import Client as NATS
+import logging
+import json
+
+
+
 url = "http://localhost:5001/verificar_token"
 
 @retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
@@ -38,3 +44,20 @@ class tt:
                 return jsonify({'error': f"Error en la verificación del token: {str(e)}"}), 500
 
         return decorador
+
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+async def publicar_evento(evento):
+    nc = NATS()
+
+    await nc.connect("nats://localhost:4222")
+
+    evento_data = json.dumps(evento)
+
+    await nc.publish("eventos_buses", evento_data.encode('utf-8'))
+
+    logging.info(f"Evento enviado a NATS: {evento}")
+
+    # Desconectar
+    await nc.drain()

@@ -1,6 +1,7 @@
 blinker==1.8.2
 certifi==2024.8.30
 charset-normalizer==3.3.2
+circuitbreaker==2.0.0
 click==8.1.7
 Flask==3.0.3
 Flask-SQLAlchemy==3.1.1
@@ -13,6 +14,7 @@ PyJWT==2.9.0
 pytz==2024.2
 requests==2.32.3
 SQLAlchemy==2.0.35
+tenacity==9.0.0
 typing_extensions==4.12.2
 urllib3==2.2.3
 Werkzeug==3.0.4

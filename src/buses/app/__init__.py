@@ -17,7 +17,7 @@ def crear_app():
     with app.app_context():
         
         from .models.buses_models import Buses
-        from .models.itinerario_models import Itinerarios
+       
         db.create_all()  # Crear las tablas en la base de datos
 
     # Importar y registrar el blueprint de rutas
